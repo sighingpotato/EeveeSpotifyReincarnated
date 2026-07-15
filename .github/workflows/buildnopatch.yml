@@ -29,11 +29,7 @@ jobs:
           fetch-depth: 0
           submodules: recursive
 
-      # 외부 액션 대신 macOS에 이미 설치된 Xcode를 직접 선택합니다.
-      # (Xcode 16.3.0 기준 경로 예시이며, 러너에 설치된 버전에 맞게 폴더명을 조정할 수 있습니다)
-      - name: Select Xcode Version
-        run: |
-          sudo xcode-select -s /Applications/Xcode_16.3.app/Contents/Developer
+      # 수동 Xcode 지정 단계를 제거했습니다. 러너의 기본 최신 Xcode가 자동으로 활성화됩니다.
 
       - name: Setup Theos
         uses: actions/checkout@v4
@@ -81,7 +77,6 @@ jobs:
           if-no-files-found: error
 
       # ─── IPA build (only when ipa_url is provided) ───────────────────
-      # (오래된 Node 버전을 쓰던 hide-sensitive-inputs 액션 단계는 제거되었습니다)
 
       - name: Validate vanilla IPA
         if: ${{ inputs.ipa_url != '' }}
